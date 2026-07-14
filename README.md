@@ -8,8 +8,6 @@ A Python tool that scans AWS accounts for critical security misconfigurations. C
 
 This project includes an automated security pipeline that runs on every push.
 
-![Security Pipeline](https://github.com/KuruJPerera/cloud-misconfiguration-scanner/actions/workflows/security-pipeline.yml/badge.svg)
-
 Four automated jobs run on every commit:
 
 - Bandit — scans Python code for insecure functions and hardcoded secrets
