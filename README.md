@@ -1,49 +1,80 @@
 # Cloud Misconfiguration Scanner
 
-Scans an AWS account for common security misconfigurations. Outputs colour-coded terminal findings and a timestamped JSON report.
+A Python tool that scans AWS accounts for critical security misconfigurations. Connects directly to AWS APIs, runs automated checks, and outputs colour-coded terminal findings with a timestamped JSON report.
 
 ---
 
-## What it checks
+## What it detects
 
-| Check | Severity | What it looks for |
-|---|---|---|
-| S3 public access | HIGH | Buckets with public access block settings disabled |
-| IAM MFA | HIGH | Console users with no MFA device enrolled |
-| Security groups | HIGH | SSH or RDP open to 0.0.0.0/0 |
-| CloudTrail | HIGH | No active audit logging in the target region |
-| Root account | HIGH | Root account used within the last 30 days |
+- S3 buckets with public access enabled
+- IAM users with no MFA enrolled
+- Security groups with SSH or RDP open to the internet (0.0.0.0/0)
+- Missing CloudTrail audit logging
+- Root account used within the last 30 days
 
 ---
 
-## Requirements
+## Built With
 
-- Python 3.8+
-- AWS credentials configured via `aws configure`
-- IAM permissions: `SecurityAudit` or `ReadOnlyAccess` minimum
+- [Python 3.11](https://www.python.org/)
+- [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
+- [argparse](https://docs.python.org/3/library/argparse.html)
+- [colorama](https://pypi.org/project/colorama/)
+
+---
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/KuruJPerera/cloud-misconfiguration-scanner.git
+cd cloud-misconfiguration-scanner
+```
+
+2. Install dependencies:
 
 ```bash
 pip install boto3 colorama
+```
+
+3. Configure AWS credentials:
+
+```bash
+aws configure
 ```
 
 ---
 
 ## Usage
 
+Run a full scan:
+
 ```bash
-# Full scan
 python scanner.py
+```
 
-# Specific region
+Scan a specific region:
+
+```bash
 python scanner.py --region us-east-1
+```
 
-# Specific checks
+Run specific checks only:
+
+```bash
 python scanner.py --checks s3 iam sg
+```
 
-# Filter by severity
+Filter by severity:
+
+```bash
 python scanner.py --severity HIGH
+```
 
-# Custom output file
+Save to a custom file:
+
+```bash
 python scanner.py --output report.json
 ```
 
@@ -87,18 +118,7 @@ python scanner.py --output report.json
 
 ---
 
-## Tech stack
-
-| | |
-|---|---|
-| Language | Python 3.11 |
-| AWS SDK | boto3 |
-| CLI | argparse |
-| Output | colorama, JSON |
-
----
-
-## CLI flags
+## CLI Flags
 
 | Flag | Short | Default | Description |
 |---|---|---|---|
@@ -106,3 +126,11 @@ python scanner.py --output report.json
 | `--checks` | `-c` | all | s3, iam, sg, cloudtrail, root |
 | `--severity` | `-s` | all | Filter by HIGH, MEDIUM, LOW |
 | `--output` | `-o` | timestamped | JSON report filename |
+
+---
+
+## Requirements
+
+- Python 3.8+
+- AWS credentials configured via `aws configure`
+- IAM permissions: SecurityAudit or ReadOnlyAccess minimum
