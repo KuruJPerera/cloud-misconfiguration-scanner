@@ -1,4 +1,4 @@
-[# Cloud Misconfiguration Scanner
+# Cloud Misconfiguration Scanner
 
 Scans an AWS account for common security misconfigurations. Outputs colour-coded terminal findings and a timestamped JSON report.
 
@@ -106,4 +106,3 @@ python scanner.py --output report.json
 | `--checks` | `-c` | all | s3, iam, sg, cloudtrail, root |
 | `--severity` | `-s` | all | Filter by HIGH, MEDIUM, LOW |
 | `--output` | `-o` | timestamped | JSON report filename |
-]()
